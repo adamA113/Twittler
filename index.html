@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <link href="style.css" rel="stylesheet" type="text/css" />
+  <script src="jquery.js"></script>
+  <script src="data_generator.js"></script>
+</head>
+
+<body>
+  <nav id="one">
+    <h1>Twittler</h1>
+    <input type="button" value="Home" onclick=s()>
+    <br>
+    <form>
+      <label for="name">Name</label>
+      <input type="text" id="name" placeholder="User name">
+      <label for="message">Message</label>
+      <input type="text" id="message" placeholder="User tweet">
+    </form>
+    <input type="button" value="Twittle" onclick=t()>
+  </nav>
+
+  </nav>
+  <nav id="two">
+  </nav>
+
+  <script>
+    function s() {
+      $("div").remove()
+      var index = streams.home.length - 1;
+      while (index >= 0) {
+        var tweet = streams.home[index];
+        var $tweet = $('<div></div>');
+        var date = new Date()
+
+        var sec = date.getSeconds() - (tweet.created_at.getSeconds())
+        if (Math.sign(sec) === -1) { sec = 60 + sec; --min }
+        if (sec < 10) { sec = "0" + sec }
+
+        var min = date.getMinutes() - (tweet.created_at.getMinutes())
+        if (Math.sign(min) === -1) { min = 60 + min; --hour }
+        if (min < 10) { min = "0" + min }
+
+        var hour = date.getHours() - (tweet.created_at.getHours())
+        if (Math.sign(hour) === -1) { hour = 24 + hour }
+        if (hour < 10) { hour = "0" + hour }
+
+        $tweet.html('@ <a style="color:purple" onclick = w(this)>' + tweet.user + '</a> : ' + tweet.message + ", " + hour + ":" + min + ":" + sec + " ago.");
+        $tweet.appendTo($("#two"));
+        index--;
+      }
+    }
+
+    function w(user) {
+      var userName = user.innerText
+      $("div").remove()
+      var index = streams.users[userName].length - 1;
+      while (index >= 0) {
+        var tweet = streams.users[userName][index];
+        var $tweet = $('<div></div>');
+        var date = new Date()
+
+        var hour = date.getHours() - (tweet.created_at.getHours())
+        if (Math.sign(hour) === -1) { hour = 24 + hour }
+        if (hour < 10) { hour = "0" + hour }
+
+        var min = date.getMinutes() - (tweet.created_at.getMinutes())
+        if (Math.sign(min) === -1) { min = 60 + min; --hour }
+        if (min < 10) { min = "0" + min }
+
+        var sec = date.getSeconds() - (tweet.created_at.getSeconds())
+        if (Math.sign(sec) === -1) { sec = 60 + sec; --min }
+        if (sec < 10) { sec = "0" + sec }
+        $tweet.html('@<span style="color:purple">' + tweet.user + '</span> : ' + tweet.message + ", " + hour + ":" + min + ":" + sec + " ago.");
+        $tweet.appendTo($("#two"));
+        index--;
+      }
+    }
+
+    function t() {
+      var name = $("#name");
+      var message = $("#message");
+      if (streams.users[name.val()] === undefined) { streams.users[name.val()] = [] }
+      var y = {};
+      y.user = name.val();
+      y.message = message.val();
+      y.created_at = new Date();
+      addTweet(y);
+      s()
+    }
+  </script>
+</body>
+
+</html>

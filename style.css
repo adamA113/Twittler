@@ -1,0 +1,46 @@
+body{
+  background-image: url('https://www.eparent.com/wp-content/uploads/2015/10/1.png');
+  background-repeat:no-repeat;
+  background-size: 100% 100%;
+  background-attachment: fixed;
+}
+
+#one{
+display:flex;
+flex-direction: column;
+justify-content:center;
+align-items:center;
+flex-flow: column wrap;
+color:blue;
+}
+
+#two{
+	display: block;
+	float: right;
+  width:100%;
+}
+
+div{
+    color: blue;
+  	border: 3px solid pink;
+    margin:7px;
+    padding:7px;
+}
+
+input[type=button]{
+  color:white;
+  background-color: blue;
+  border-radius: 12px;
+  height: 30px;
+  width: 70px;
+  outline: none;
+}
+
+form{
+  display: flex;
+  flex-direction: column;
+}
+
+form input{
+  margin: 10px;
+}
